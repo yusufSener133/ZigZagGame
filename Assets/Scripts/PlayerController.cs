@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public bool startGame;
     public int _score = 0;
     [SerializeField] GroundSpawner _groundSpawner;
+    [SerializeField] ChangeColor _changeColor;
     [SerializeField, Range(0, 10)] float _moveSpeed = 3f;
     Vector3 yon = Vector3.left;
     Rigidbody _rigidbody;
@@ -42,6 +43,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Zemin"))
         {
+            _changeColor.ChangingColor();
             _score++;
             _groundSpawner.ZeminOlustur();
             if (_score >= 20)
