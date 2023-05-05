@@ -13,10 +13,18 @@ public class GroundSpawner : MonoBehaviour
             yield return new WaitForSeconds(.1f);
         }
     }
-    void ZeminOlustur()
+    public void ZeminOlustur()
     {
-        
-        _sonZemin = Instantiate(_sonZemin, _sonZemin.transform.position + Vector3.back, transform.rotation, transform);
+        Vector3 yon;
+        if (Random.Range(0,2) == 0)
+        {
+            yon = Vector3.left;
+        }
+        else
+        {
+            yon = Vector3.back;
+        }
+        _sonZemin = Instantiate(_sonZemin, _sonZemin.transform.position + yon, transform.rotation, transform);
     }
 
 }
