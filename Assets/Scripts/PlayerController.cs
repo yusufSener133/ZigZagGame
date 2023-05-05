@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            startGame = true;
             if (yon.x == 0)
             {
                 yon = Vector3.left;
@@ -41,6 +44,10 @@ public class PlayerController : MonoBehaviour
         {
             _score++;
             _groundSpawner.ZeminOlustur();
+            if (_score >= 20)
+                _groundSpawner.ZeminOlustur();
+            if (_score >= 100)
+                _groundSpawner.ZeminOlustur();
             _moveSpeed += .1f;
             StartCoroutine(Yoket(collision.transform));
         }
@@ -48,8 +55,12 @@ public class PlayerController : MonoBehaviour
     IEnumerator Yoket(Transform go)
     {
         yield return new WaitForSeconds(.3f);
-        go.gameObject.AddComponent<Rigidbody>();
+        if (!go.GetComponent<Rigidbody>())
+        {
+            go.gameObject.AddComponent<Rigidbody>();
+        }
         yield return new WaitForSeconds(1f);
+        go.tag = "Untagged";
         Destroy(go.gameObject, 2f);
     }
 }
