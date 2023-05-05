@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Zemin"))
         {
-            _changeColor.ChangingColor();
             _score++;
             _groundSpawner.ZeminOlustur();
             if (_score >= 20)

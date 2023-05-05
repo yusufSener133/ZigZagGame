@@ -7,18 +7,35 @@ public class ChangeColor : MonoBehaviour
     [SerializeField] PlayerController _player;
     [SerializeField] List<Color> _colors;
     [SerializeField] Material _zeminMat;
-    Color _ilkRenk, _ikinciRenk;
-    int _birinciRenk;
+    Color _renk;
+    int _birinciRenkIndex;
     private void Start()
     {
-        _birinciRenk = Random.Range(0, _colors.Count);
-        _zeminMat.color = _colors[_birinciRenk];
-        Camera.main.backgroundColor = _colors[_birinciRenk];
+        _birinciRenkIndex = Random.Range(0, _colors.Count);
+        _renk = _colors[IkinciRenkSec()];
+        _zeminMat.color = _colors[_birinciRenkIndex];
+        Camera.main.backgroundColor = _colors[_birinciRenkIndex];
     }
-    public void ChangingColor()
+    private void Update()
     {
-        _birinciRenk = Random.Range(0, _colors.Count);
-        _zeminMat.color = _colors[_birinciRenk];
-        Camera.main.backgroundColor = _colors[_birinciRenk];
+        Color fark = _zeminMat.color - _renk;
+        if (Mathf.Abs(fark.r)+ Mathf.Abs(fark.g) + Mathf.Abs(fark.b) <0.2f)
+        {
+            _renk = _colors[IkinciRenkSec()];
+        }
+        _zeminMat.color = Color.Lerp(_zeminMat.color,_renk,0.003f);
+        Camera.main.backgroundColor = Color.Lerp(Camera.main.backgroundColor, _renk, 0.0007f);
     }
+    int IkinciRenkSec()
+    {
+        int ikinciRenkIndex;
+        ikinciRenkIndex = Random.Range(0, _colors.Count);
+        while (ikinciRenkIndex == _birinciRenkIndex)
+        {
+            ikinciRenkIndex = Random.Range(0, _colors.Count);
+        }
+        return ikinciRenkIndex;
+    }
+    
+
 }
