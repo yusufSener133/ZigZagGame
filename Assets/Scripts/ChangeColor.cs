@@ -37,5 +37,13 @@ public class ChangeColor : MonoBehaviour
         return ikinciRenkIndex;
     }
     
-
+    /*
+    .BestScore StartPanelde
+    .Font değiştir
+    .Buton resimleri değiştir
+    .Score işlemini değiştir (altın topla)
+    .Score 30 un katı olduğunda oyun hızlansın
+    .*Paneller animasyonla gelsin
+    .BestScore değiştiyse animasyonlu bişiler
+     */
 }

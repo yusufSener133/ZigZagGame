@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Text _scoreText, _bestScoreText;
-    [SerializeField] GameObject _player;
+    [SerializeField] GameObject _player,_gameOverPanel;
 
     private void Start()
     {
@@ -24,25 +24,20 @@ public class GameManager : MonoBehaviour
             {
                 PlayerPrefs.SetInt("Score", _score);
             }
-            SceneManager.LoadScene(0);
+            _gameOverPanel.SetActive(true);
+            Destroy(Camera.main.GetComponent<CameraFollow>());
+            _player.gameObject.SetActive(false);
+
         }
         _scoreText.text = _score.ToString();
 
-        if (100 < _score)
-        {
-            _scoreText.color = Color.white;
-        }
-        else if (60 < _score)
-        {
-            _scoreText.color = Color.magenta;
-        }
-        else if (40 < _score)
-        {
-            _scoreText.color = Color.yellow;
-        }
-        else if (20 < _score)
-        {
-            _scoreText.color = Color.green;
-        }
+    }
+    public void RestartButton()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void QuitButton()
+    {
+        Application.Quit();
     }
 }
