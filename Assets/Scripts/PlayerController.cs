@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -43,7 +42,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Zemin"))
         {
-            _score++;
             _groundSpawner.ZeminOlustur();
             if (_score >= 20)
                 _groundSpawner.ZeminOlustur();
@@ -51,6 +49,14 @@ public class PlayerController : MonoBehaviour
                 _groundSpawner.ZeminOlustur();
             _moveSpeed += .1f;
             StartCoroutine(Yoket(collision.transform));
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Coin"))
+        {
+            _score++;
+            Destroy(other.gameObject);
         }
     }
     IEnumerator Yoket(Transform go)

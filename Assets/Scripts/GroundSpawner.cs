@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GroundSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject _sonZemin;
+    [SerializeField] GameObject _sonZemin, _coin;
     private IEnumerator Start()
     {
         for (int i = 0; i < 10; i++)
@@ -16,19 +16,28 @@ public class GroundSpawner : MonoBehaviour
     public void ZeminOlustur()
     {
         Vector3 yon;
-        if (Random.Range(0,2) == 0)
+        if (Random.Range(0, 2) == 0)
         {
-            yon = new Vector3(-1,5,0);
+            yon = new Vector3(-1, 5, 0);
             //yon = Vector3.left;
         }
         else
         {
-            yon = new Vector3(0,5,-1);
+            yon = new Vector3(0, 5, -1);
             //yon = Vector3.back;
         }
         Vector3 yonUp = _sonZemin.transform.position + yon;
         Vector3 yonDown = new Vector3(yonUp.x, 0, yonUp.z);
-        _sonZemin = Instantiate(_sonZemin, Vector3.Lerp(yonUp,yonDown,1), transform.rotation, transform);
+        _sonZemin = Instantiate(_sonZemin, Vector3.Lerp(yonUp, yonDown, 1), transform.rotation, transform);
+        CoinSpawner(_sonZemin.transform);
+    }
+    void CoinSpawner(Transform go)
+    {
+        Vector3 pos = new Vector3(go.position.x, go.position.y + .75f, go.position.z);
+        if (Random.Range(0, 2) == 0)
+        {
+            Instantiate(_coin, pos, Quaternion.identity);
+        }
     }
 
 }
