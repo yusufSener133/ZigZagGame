@@ -7,17 +7,21 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] Text _scoreText, _bestScoreText;
-    [SerializeField] GameObject _player,_gameOverPanel;
+    [SerializeField] GameObject _player, _gameOverPanel;
+    [SerializeField] Animator _animator;
 
     private void Start()
     {
-        //PlayerPrefs.SetInt("Score", 0);
         _bestScoreText.text = "Best Score: " + PlayerPrefs.GetInt("Score").ToString();
     }
     private void Update()
     {
         int _score = _player.GetComponent<PlayerController>()._score;
-        
+
+        if (PlayerPrefs.GetInt("Score") - _score == -1)
+        {
+            _animator.Play("NewScore");
+        }
         if (_player.transform.position.y < 0.1f)
         {
             if (PlayerPrefs.GetInt("Score") < _score)
@@ -30,7 +34,6 @@ public class GameManager : MonoBehaviour
 
         }
         _scoreText.text = _score.ToString();
-
     }
     public void RestartButton()
     {
@@ -39,5 +42,9 @@ public class GameManager : MonoBehaviour
     public void QuitButton()
     {
         Application.Quit();
+    }
+    public void ResetBestScore()
+    {
+        PlayerPrefs.SetInt("Score", 0);
     }
 }

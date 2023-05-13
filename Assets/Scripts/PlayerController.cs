@@ -43,11 +43,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Zemin"))
         {
             _groundSpawner.ZeminOlustur();
-            if (_score >= 20)
-                _groundSpawner.ZeminOlustur();
-            if (_score >= 100)
-                _groundSpawner.ZeminOlustur();
-            _moveSpeed += .1f;
+            if (_score % 3 == 0)
+                _moveSpeed += .2f;
             StartCoroutine(Yoket(collision.transform));
         }
     }
